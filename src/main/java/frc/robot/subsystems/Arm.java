@@ -13,6 +13,7 @@ import com.revrobotics.SparkAbsoluteEncoder.Type;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ArmConstants;
 
 public class Arm extends SubsystemBase {
 
@@ -22,7 +23,7 @@ public class Arm extends SubsystemBase {
 
   private final PIDController m_pidController;
 
-  private boolean m_isConstrained;
+  private boolean m_isConstrainted;
   
   private static Arm m_instance = null;
 
@@ -39,33 +40,33 @@ public class Arm extends SubsystemBase {
 
   /** Creates a new Arm. */
   private Arm() {
-    m_primaryMotor = new CANSparkMax(1/*Place the primary motor id here*/, MotorType.kBrushless);
-    m_secondaryMotor = new CANSparkMax(2/*Place the primary motor id here*/, MotorType.kBrushless);
+    m_primaryMotor = new CANSparkMax(ArmConstants.PRIMARY_MOTOR_ID, MotorType.kBrushless);
+    m_secondaryMotor = new CANSparkMax(ArmConstants.SECONDARY_MOTOR_ID, MotorType.kBrushless);
     m_secondaryMotor.follow(m_primaryMotor);
-    m_primaryMotor.setSmartCurrentLimit(50/*Place the current limit here*/);
+    m_primaryMotor.setSmartCurrentLimit(ArmConstants.MOTOR_CURRENT_LIMIT);
     m_primaryMotor.setIdleMode(IdleMode.kBrake);
 
     m_encoder = m_primaryMotor.getAbsoluteEncoder(Type.kDutyCycle);
-    m_encoder.setPositionConversionFactor(1/*Place positing conversion factor here*/);
-    m_encoder.setZeroOffset(0/*Place encoder zero offset here*/);
-    m_encoder.setInverted(false/*place encoder inverted here*/);
+    m_encoder.setPositionConversionFactor(ArmConstants.ENCODER_POSITION_CONVERTION_RATE);
+    m_encoder.setZeroOffset(ArmConstants.ENCODER_ZERO_OFFSET);
+    m_encoder.setInverted(ArmConstants.ENCODER_IS_INVERTED);
 
-    m_pidController = new PIDController(0/*Place pid p here*/, 0/*Place pid i here*/, 0/*Place pid d here*/);
-    m_pidController.setTolerance(0/*Place pid tolerance here*/);
+    m_pidController = new PIDController(ArmConstants.PID_P, ArmConstants.PID_I, ArmConstants.PID_D);
+    m_pidController.setTolerance(ArmConstants.PID_TOLERANCE);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
 	  SmartDashboard.putNumber("Arm angle:", m_encoder.getPosition());
-	  SmartDashboard.putBoolean("Is constrained", m_isConstrained);
+	  SmartDashboard.putBoolean("Is constrained", m_isConstrainted);
   }
 
   /**
    * Switches whether a constain is applied on the arm
    */
   public void switchConstraint() {
-    m_isConstrained = !m_isConstrained;
+    m_isConstrainted = !m_isConstrainted;
   }
 
   /**
@@ -90,11 +91,11 @@ public class Arm extends SubsystemBase {
    * @return The angle required for the arm to reach
    */
   public double getAngleByDistanceSpeaker(double distance) {
-    double[] distancePolindrom = {1};
+    double[] distancePolindrom = ArmConstants.DISTANCE_TO_ANGLE_POLINDROM;
     double angle = 0;
     
     for (int i = 0; i < distancePolindrom.length; i++) {
-      angle = distancePolindrom[i] * Math.pow(distance, i + 1);
+      angle = distancePolindrom[i] * Math.pow(distance, i);
     }
 
     return angle;
@@ -109,18 +110,18 @@ public class Arm extends SubsystemBase {
 
   /**
    * This method sets the speed for the arm and makes
-   * sure that the arm is constrained according to the constrains
+   * sure that the arm is constrainted according to the constraints
    * @param speed The speed to set to the arm.
    */
   public void setSpeed(double speed) {
-		if(m_isConstrained){
-			if(!((getPosition() > 0/*Place here lower-bound constrain*/ && speed > 0 && getPosition() < 350) ||
-				   ((getPosition() < 90/*Place here higher-bound constrain*/ || getPosition() > 350) && speed < 0 ))) {
-					if((getPosition() < 30/*Place here near-lower-bound constrain*/ && speed < 0) || (getPosition() > 70/*Place here near-higher-bound constrain*/ && speed > 0)) {
-						m_primaryMotor.set(speed * 0.5/*Place here the arn's speed when near constrain*/);
+		if(m_isConstrainted){
+			if(!((getPosition() > ArmConstants.HIGHER_BOUND_CONSTRAINT && speed > 0 && getPosition() < 350) ||
+				   ((getPosition() < ArmConstants.LOWER_BOUND_CONSTRAINT || getPosition() > 350) && speed < 0 ))) {
+					if((getPosition() < ArmConstants.NEAR_LOWER_BOUND_CONSTRAINT && speed < 0) || (getPosition() > ArmConstants.NEAR_HIGHER_BOUND_CONSTRAINT && speed > 0)) {
+						m_primaryMotor.set(speed * ArmConstants.SLOW_SPEED);
 					}
 					else {
-						m_primaryMotor.set(speed * 1/*Place here to the arm's speed*/);
+						m_primaryMotor.set(speed * ArmConstants.CONSTRAINTED_SPEED);
 					}	
 			}
 			else {
@@ -128,7 +129,7 @@ public class Arm extends SubsystemBase {
 			}
 		}
 		else {
-			m_primaryMotor.set(speed * 1/*Place here to the arm's speed - unconstrained*/);
+			m_primaryMotor.set(speed * ArmConstants.UNCONSTRAINTED_SPEED);
 		}
 	}
 
@@ -146,8 +147,8 @@ public class Arm extends SubsystemBase {
    */
   public void setSpeedByMeasurement(double measurement){
 		double output = m_pidController.calculate(measurement);
-		output = output > 0.4/*Place here max speed*/ ? 0.4/*Place here max speed*/ : output;
-		output = output < -0.4/*Place here max speed*/ ? -0.4/*Place here max speed*/ : output;
+		output = output >(ArmConstants.UNCONSTRAINTED_SPEED) ? (ArmConstants.UNCONSTRAINTED_SPEED) : output;
+		output = output < -(ArmConstants.UNCONSTRAINTED_SPEED) ? -(ArmConstants.UNCONSTRAINTED_SPEED) : output;
 		m_primaryMotor.set(output);
 	}
 
