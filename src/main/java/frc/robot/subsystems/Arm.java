@@ -32,7 +32,7 @@ public class Arm extends SubsystemBase {
    * 
    * @return The only instance of the Arm class
    */
-  public Arm getInstance() {
+  public static Arm getInstance() {
     if (m_instance == null)
       m_instance = new Arm();
     return m_instance;

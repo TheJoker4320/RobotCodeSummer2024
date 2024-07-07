@@ -5,6 +5,9 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.MoveArm;
+import frc.robot.commands.SwitchArmIsConstrainted;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.PS4Controller;
@@ -13,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -24,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_robotDrive = DriveSubsystem.getInstance();
+  private final Arm m_arm = Arm.getInstance();
 
   // Creating the Controllers
   private final XboxController m_driverController = new XboxController(OperatorConstants.kDriverControllerPort);
@@ -57,7 +62,12 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-
+    JoystickButton raiseArmBtn = new JoystickButton(m_operatorController, OperatorConstants.RAISE_ARM_BUTTON);
+    raiseArmBtn.whileTrue(new MoveArm(m_arm, false));
+    JoystickButton lowerArmBtn = new JoystickButton(m_operatorController, OperatorConstants.LOWER_ARM_BUTTON);
+    lowerArmBtn.whileTrue(new MoveArm(m_arm, true));
+    JoystickButton switchArmIsConstrainted = new JoystickButton(m_operatorController, OperatorConstants.SWITCH_ARM_CONSTRAINT);
+    switchArmIsConstrainted.onTrue(new SwitchArmIsConstrainted(m_arm));
   }
 
   /**
