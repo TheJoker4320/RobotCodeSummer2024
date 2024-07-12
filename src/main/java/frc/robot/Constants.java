@@ -130,5 +130,6 @@ public final class Constants {
     public static class CollectorConstants {
         public static final int LIMIT_SWITCH_PORT = 0;
         public static final int PRIMARY_MOTOR_PORT = 15;
+        public static final double COLLECTOR_SPEED = 0.7;
     }
 }
