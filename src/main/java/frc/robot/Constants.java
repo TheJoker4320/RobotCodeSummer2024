@@ -127,4 +127,11 @@ public final class Constants {
 
       public static final boolean kGyroReversed = false;
     }
+
+    public static final class ClimberConstants{
+        public static final int PRIMARY_MOTOR_ID = 11;
+        public static final int SECONDARY_MOTOR_ID = 12;
+
+        public static final int SMART_CURRENT_LIMIT = 50;
+    }
 }

@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ClimberConstants;;
 
 public class Climber extends SubsystemBase {
   private CANSparkMax m_primaryMotor;
@@ -29,11 +30,11 @@ public class Climber extends SubsystemBase {
 
   /** Creates a new Climber. */
   private Climber() {
-    m_primaryMotor = new CANSparkMax(0/*set primary motor controller id here */, MotorType.kBrushless);
-    m_secondaryMotor = new CANSparkMax(0/*set secondary motor controller id here */, MotorType.kBrushless);
+    m_primaryMotor = new CANSparkMax(ClimberConstants.PRIMARY_MOTOR_ID, MotorType.kBrushless);
+    m_secondaryMotor = new CANSparkMax(ClimberConstants.SECONDARY_MOTOR_ID, MotorType.kBrushless);
 
-    m_primaryMotor.setSmartCurrentLimit(0/*set smart current limit here */);
-    m_secondaryMotor.setSmartCurrentLimit(0/*set smart current limit here */);
+    m_primaryMotor.setSmartCurrentLimit(ClimberConstants.SMART_CURRENT_LIMIT);
+    m_secondaryMotor.setSmartCurrentLimit(ClimberConstants.SMART_CURRENT_LIMIT);
 
 
     m_primaryMotor.setInverted(true);
