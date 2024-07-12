@@ -127,4 +127,8 @@ public final class Constants {
 
       public static final boolean kGyroReversed = false;
     }
+    public static class CollectorConstants {
+        public static final int LIMIT_SWITCH_PORT = -1;
+        public static final int PRIMARY_MOTOR_PORT = -1;
+    }
 }
