@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.wpilibj.PS4Controller;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -19,6 +20,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
  */
 public final class Constants {
     public static class OperatorConstants {
+        public static final int CLIMB_BUTTON = PS4Controller.Button.kOptions.value;
       public static final int kDriverControllerPort = 0;
       public static int kOperatorControllerPort = 1;
     public static double kDriveDeadband = 0.1;
@@ -133,5 +135,6 @@ public final class Constants {
         public static final int SECONDARY_MOTOR_ID = 12;
 
         public static final int SMART_CURRENT_LIMIT = 50;
+        public static final double CLIMB_SPEED = 0.5;
     }
 }

@@ -44,9 +44,9 @@ public class Climber extends SubsystemBase {
   /**
    * The method sets the speed for the climber
    * 
-   * @param speed The speed to set to the climber
+   * @param climbSpeed The speed to set to the climber
    */
-  public void setSpeed(int speed){
+  public void setSpeed(double speed){
     m_primaryMotor.set(speed);
   }
 
