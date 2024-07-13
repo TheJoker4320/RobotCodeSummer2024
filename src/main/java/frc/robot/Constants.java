@@ -127,4 +127,13 @@ public final class Constants {
 
       public static final boolean kGyroReversed = false;
     }
+    public static class ShooterConstants{
+        public static final int MASTER_MOTOR_PORT = 0;
+        public static final int SLAVE_MOTOR_PORT = 0;
+        public static final double kP = 0;
+        public static final double kI = 0;
+        public static final double kD = 0;
+        public static final int SHOOTER_ENCODER_PORT_A = 0;
+		public static final int SHOOTER_ENCODER_PORT_B = 0;
+    }
 }
