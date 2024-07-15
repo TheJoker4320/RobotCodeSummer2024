@@ -25,8 +25,16 @@ public class LimeLight {
     public double getLimeLightArea() {
         return table.getEntry("ta").getDouble(0.0);
     }
-    public int GetId() {
+    public int getId() {
         return (int) table.getEntry("tid").getDouble(0.0);
     }
-    // TODO: Add method to calculate true distance
+    
+    public double getTrueDistance() {
+        double targetOffsetAngle_Vertical = getLimeLightTY();
+        double angleToGoalDegrees = Constants.LimelightConstants.LIMELIGHT_MOUNT_ANGLE + targetOffsetAngle_Vertical;
+        double angleToGoalRadians = angleToGoalDegrees * (Math.PI / 180.0);
+
+        double distanceFromRobotToGoalCentimeters = ((Constants.LimelightConstants.APRIL_TAGS_HEIGHT.get(getId()) - Constants.LimelightConstants.LIMELIGHT_HEIGHT_FROM_FLOOR) / Math.tan(angleToGoalRadians)) - Constants.LimelightConstants.LIMELIGHT_FROM_ROBOT_EDGE;
+        return distanceFromRobotToGoalCentimeters;
+    }
 }

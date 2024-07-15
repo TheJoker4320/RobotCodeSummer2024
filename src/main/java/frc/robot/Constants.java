@@ -7,6 +7,7 @@ package frc.robot;
 import com.revrobotics.CANSparkBase.IdleMode;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -133,6 +134,11 @@ public final class Constants {
         public static final double LIMELIGHT_HEIGHT_FROM_FLOOR = 27;
         public static final double LIMELIGHT_MOUNT_ANGLE = 0;
         public static final double LIMELIGHT_FROM_ROBOT_EDGE = 16.2;
-        // TODO: Add a hashmap for all april tag heights
+        public static final Map<Integer, Double> APRIL_TAGS_HEIGHT = new HashMap<>();
+
+    static {
+        for (int i = 1; i <= 16; i++) {
+            APRIL_TAGS_HEIGHT.put(i, 0.0);
+        }
     }
-}
+    }}
