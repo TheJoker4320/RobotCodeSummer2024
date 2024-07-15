@@ -6,6 +6,8 @@ package frc.robot;
 
 import com.revrobotics.CANSparkBase.IdleMode;
 
+import java.util.HashMap;
+
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 
@@ -126,5 +128,11 @@ public final class Constants {
       public static final int kRearRightModuleId = 3;
 
       public static final boolean kGyroReversed = false;
+    }
+    public static final class LimelightConstants {
+        public static final double LIMELIGHT_HEIGHT_FROM_FLOOR = 27;
+        public static final double LIMELIGHT_MOUNT_ANGLE = 0;
+        public static final double LIMELIGHT_FROM_ROBOT_EDGE = 16.2;
+        // TODO: Add a hashmap for all april tag heights
     }
 }
