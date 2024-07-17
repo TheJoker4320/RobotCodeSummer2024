@@ -29,7 +29,6 @@ public class Shooter extends SubsystemBase {
   }
 
   public Shooter() {
-    //TODO: set motor ports and encoder ports
     master = new TalonSRX(ShooterConstants.MASTER_MOTOR_PORT);
     slave = new TalonSRX(ShooterConstants.SLAVE_MOTOR_PORT);
     slave.follow(master);

@@ -5,14 +5,18 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Shoot;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -28,7 +32,7 @@ public class RobotContainer {
   // Creating the Controllers
   private final XboxController m_driverController = new XboxController(OperatorConstants.kDriverControllerPort);
   private final PS4Controller m_operatorController = new PS4Controller(OperatorConstants.kOperatorControllerPort);
-
+  private final Shooter shooter = Shooter.getInstance();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
@@ -57,7 +61,8 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-
+    JoystickButton shootButton = new JoystickButton(m_operatorController, OperatorConstants.SHOOT_BUTTON);
+    shootButton.whileTrue(new Shoot(shooter, 60));
   }
 
   /**

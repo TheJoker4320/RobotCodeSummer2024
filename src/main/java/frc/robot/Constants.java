@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.wpilibj.PS4Controller;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -20,7 +21,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 public final class Constants {
     public static class OperatorConstants {
       public static final int kDriverControllerPort = 0;
-      public static int kOperatorControllerPort = 1;
+      public static final int kOperatorControllerPort = 1;
+      public static final int SHOOT_BUTTON = PS4Controller.Button.kCircle.value;
     public static double kDriveDeadband = 0.1;
     }
   
@@ -130,8 +132,8 @@ public final class Constants {
     public static class ShooterConstants{
         public static final int MASTER_MOTOR_PORT = 14;
         public static final int SLAVE_MOTOR_PORT = 13;
-        public static final double kP = 0;
-        public static final double kI = 0;
+        public static final double kP = 0.34;
+        public static final double kI = 0.05;
         public static final double kD = 0;
         public static final int SHOOTER_ENCODER_PORT_A = 1;
 		public static final int SHOOTER_ENCODER_PORT_B = 2;
