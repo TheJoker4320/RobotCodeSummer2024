@@ -136,8 +136,8 @@ public final class Constants {
     }
 
     public static final class ArmConstants {
-        public static final int PRIMARY_MOTOR_ID = 9;
-        public static final int SECONDARY_MOTOR_ID = 10;
+        public static final int PRIMARY_MOTOR_ID = 10;
+        public static final int SECONDARY_MOTOR_ID = 9;
 
         public static final int MOTOR_CURRENT_LIMIT = 20;
 

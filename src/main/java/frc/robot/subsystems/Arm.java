@@ -42,7 +42,7 @@ public class Arm extends SubsystemBase {
   private Arm() {
     m_primaryMotor = new CANSparkMax(ArmConstants.PRIMARY_MOTOR_ID, MotorType.kBrushless);
     m_secondaryMotor = new CANSparkMax(ArmConstants.SECONDARY_MOTOR_ID, MotorType.kBrushless);
-    m_secondaryMotor.follow(m_primaryMotor);
+    m_secondaryMotor.follow(m_primaryMotor, true);
     m_primaryMotor.setSmartCurrentLimit(ArmConstants.MOTOR_CURRENT_LIMIT);
     m_primaryMotor.setIdleMode(IdleMode.kBrake);
 
