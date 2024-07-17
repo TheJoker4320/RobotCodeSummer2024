@@ -11,26 +11,24 @@ import frc.robot.Constants.CollectorConstants;
 public class Collect extends Command {
   private Collector m_collector;
   
-  public Collect() {
-    m_collector = m_collector.getInstance();
+  public Collect(Collector collector) {
+    m_collector = collector;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_collector.SetCollectorSpeed(CollectorConstants.COLLECTOR_SPEED);
+    m_collector.setSpeed(CollectorConstants.COLLECTOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_collector.SetCollectorSpeed(0);
+    m_collector.setSpeed(0);
   }
 
   // Returns true when the command should end.

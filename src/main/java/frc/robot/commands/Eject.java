@@ -11,8 +11,8 @@ import frc.robot.Constants.CollectorConstants;
 public class Eject extends Command {
   private Collector m_collector;
   
-  public Eject() {
-    m_collector = Collector.getInstance();
+  public Eject(Collector collector) {
+    m_collector = collector;
   }
 
   // Called when the command is initially scheduled.
@@ -24,13 +24,13 @@ public class Eject extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_collector.SetCollectorSpeed(CollectorConstants.EJECT_SPEED);
+    m_collector.setSpeed(-CollectorConstants.COLLECTOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_collector.SetCollectorSpeed(0);
+    m_collector.setSpeed(0);
   }
 
   // Returns true when the command should end.

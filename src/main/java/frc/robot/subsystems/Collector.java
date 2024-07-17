@@ -30,10 +30,11 @@ public class Collector extends SubsystemBase {
     m_primaryMotor = new TalonSRX(CollectorConstants.PRIMARY_MOTOR_PORT);
   }
 
-  public DigitalInput GetLimitSwitch() {
-    return m_limitSwitch;
+  public boolean GetLimitSwitch() {
+    return m_limitSwitch.get();
   }
-  public void SetCollectorSpeed(double speed) {
+
+  public void setSpeed(double speed) {
     m_primaryMotor.set(TalonSRXControlMode.PercentOutput, speed);
   }
 
