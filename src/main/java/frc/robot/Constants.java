@@ -21,9 +21,12 @@ import edu.wpi.first.wpilibj.PS4Controller;
  */
 public final class Constants {
     public static class OperatorConstants {
+        public static final int kDriverControllerPort = 0;
+        public static final int kOperatorControllerPort = 1;
+        public static final int RAISE_ARM_BUTTON = PS4Controller.Button.kR2.value;
+        public static final int LOWER_ARM_BUTTON = PS4Controller.Button.kL2.value;
+        public static final int SWITCH_ARM_CONSTRAINT = PS4Controller.Button.kL1.value;
         public static final int CLIMB_BUTTON = PS4Controller.Button.kOptions.value;
-      public static final int kDriverControllerPort = 0;
-      public static final int kOperatorControllerPort = 1;
       public static final int COLLECT_BUTTON = PS4Controller.Button.kCross.value;
       public static final int EJECT_BUTTON = PS4Controller.Button.kSquare.value;
       public static final int SHOOT_BUTTON = PS4Controller.Button.kCircle.value;
@@ -87,6 +90,8 @@ public final class Constants {
       public static final int kTurningMotorCurrentLimit = 20; // amps
     }
 
+    
+
   public static final class DriveConstants {
       // Driving Parameters - Note that these are not the maximum capable speeds of
       // the robot, rather the allowed maximum speeds
@@ -132,6 +137,33 @@ public final class Constants {
       public static final int kRearRightModuleId = 3;
 
       public static final boolean kGyroReversed = false;
+    }
+
+    public static final class ArmConstants {
+        public static final int PRIMARY_MOTOR_ID = 10;
+        public static final int SECONDARY_MOTOR_ID = 9;
+
+        public static final int MOTOR_CURRENT_LIMIT = 20;
+
+        public static final double ENCODER_POSITION_CONVERTION_RATE = 360;
+        public static final double ENCODER_ZERO_OFFSET = 377.6;
+        public static final boolean ENCODER_IS_INVERTED = true;
+
+        public static final double PID_P = 0.05;
+        public static final double PID_I = 0;
+        public static final double PID_D = 0;
+        public static final double PID_TOLERANCE = 0.5;
+
+        public static final double[] DISTANCE_TO_ANGLE_POLINDROM = {(-4.28), (8.27E-3), (2.53E-5), (-2.02E8), (6.2E-12), (-6.06E-16)};
+    
+        public static final double LOWER_BOUND_CONSTRAINT = 3;
+        public static final double NEAR_LOWER_BOUND_CONSTRAINT = 30;
+        public static final double HIGHER_BOUND_CONSTRAINT = 90;
+        public static final double NEAR_HIGHER_BOUND_CONSTRAINT = 70;
+
+        public static final double SLOW_SPEED = 0.1;
+        public static final double CONSTRAINTED_SPEED = 0.75;
+        public static final double UNCONSTRAINTED_SPEED = 0.4;
     }
 
 

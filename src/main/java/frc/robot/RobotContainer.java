@@ -5,6 +5,9 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.MoveArm;
+import frc.robot.commands.SwitchArmIsConstrainted;
+import frc.robot.subsystems.Arm;
 import frc.robot.commands.Climb;
 import frc.robot.subsystems.Climber;
 import frc.robot.commands.Shoot;
@@ -32,8 +35,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_robotDrive = DriveSubsystem.getInstance();
+  private final Arm m_arm = Arm.getInstance();
   private final Climber m_climber = Climber.getInstance();
-  private final Shooter shooter = Shooter.getInstance();
+  private final Shooter m_shooter = Shooter.getInstance();
   private final Collector m_collector = Collector.getInstance();
 
   // Creating the Controllers
@@ -68,13 +72,19 @@ public class RobotContainer {
    */
   private void configureBindings() {
     JoystickButton shootButton = new JoystickButton(m_operatorController, OperatorConstants.SHOOT_BUTTON);
-    shootButton.whileTrue(new Shoot(shooter, 60));
+    shootButton.whileTrue(new Shoot(m_shooter, 60));
     JoystickButton collectButton = new JoystickButton(m_operatorController, OperatorConstants.COLLECT_BUTTON);
     collectButton.onTrue(new Collect(m_collector));
     JoystickButton ejectButton = new JoystickButton(m_operatorController, OperatorConstants.EJECT_BUTTON);
     ejectButton.whileTrue(new Eject(m_collector));
     JoystickButton climbButton = new JoystickButton(m_operatorController, OperatorConstants.CLIMB_BUTTON);
     climbButton.whileTrue(new Climb(m_climber));
+    JoystickButton raiseArmBtn = new JoystickButton(m_operatorController, OperatorConstants.RAISE_ARM_BUTTON);
+    raiseArmBtn.whileTrue(new MoveArm(m_arm, false));
+    JoystickButton lowerArmBtn = new JoystickButton(m_operatorController, OperatorConstants.LOWER_ARM_BUTTON);
+    lowerArmBtn.whileTrue(new MoveArm(m_arm, true));
+    JoystickButton switchArmIsConstrainted = new JoystickButton(m_operatorController, OperatorConstants.SWITCH_ARM_CONSTRAINT);
+    switchArmIsConstrainted.onTrue(new SwitchArmIsConstrainted(m_arm));
   }
 
   /**
