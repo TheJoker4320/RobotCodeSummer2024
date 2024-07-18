@@ -5,6 +5,8 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Climb;
+import frc.robot.subsystems.Climber;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.Collect;
 import frc.robot.commands.Eject;
@@ -30,12 +32,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_robotDrive = DriveSubsystem.getInstance();
+  private final Climber m_climber = Climber.getInstance();
+  private final Shooter shooter = Shooter.getInstance();
   private final Collector m_collector = Collector.getInstance();
 
   // Creating the Controllers
   private final XboxController m_driverController = new XboxController(OperatorConstants.kDriverControllerPort);
   private final PS4Controller m_operatorController = new PS4Controller(OperatorConstants.kOperatorControllerPort);
-  private final Shooter shooter = Shooter.getInstance();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
@@ -70,6 +73,8 @@ public class RobotContainer {
     collectButton.onTrue(new Collect(m_collector));
     JoystickButton ejectButton = new JoystickButton(m_operatorController, OperatorConstants.EJECT_BUTTON);
     ejectButton.whileTrue(new Eject(m_collector));
+    JoystickButton climbButton = new JoystickButton(m_operatorController, OperatorConstants.CLIMB_BUTTON);
+    climbButton.whileTrue(new Climb(m_climber));
   }
 
   /**
