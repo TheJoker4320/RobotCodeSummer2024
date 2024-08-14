@@ -59,6 +59,7 @@ public class RobotContainer {
 
     m_chooser.addOption("Wait", new WaitCommand(0.0));
     m_chooser.addOption("Drive one meter", AutoCreator.getDrive1MeterCommand(m_robotDrive));
+    m_chooser.addOption("Drive one meter diagonally", AutoCreator.getDrive1MeterDiagonallyCommand(m_robotDrive));
     SmartDashboard.putData(m_chooser);
     // Configure default commands
     m_robotDrive.setDefaultCommand(
@@ -107,8 +108,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     //reset all robot encoders, odometry and heading for autonomous
-    m_robotDrive.resetEncoders();
-    m_robotDrive.zeroHeading();
     m_robotDrive.resetOdometry(new Pose2d(0.0, 0.0, new Rotation2d(0.0)));
     m_robotDrive.setModulesDirection(0.00);
 
