@@ -57,6 +57,7 @@ public class RobotContainer {
     m_chooser = new SendableChooser<>();
 
     m_chooser.addOption("Wait", new WaitCommand(0.0));
+    m_chooser.addOption("Drive one meter", AutoCreator.getDrive1MeterCommand(m_robotDrive));
     // Configure default commands
     m_robotDrive.setDefaultCommand(
         // The left stick controls translation of the robot.

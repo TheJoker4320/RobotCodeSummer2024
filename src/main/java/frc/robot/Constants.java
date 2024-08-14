@@ -11,6 +11,7 @@ import java.util.Map;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.PS4Controller;
 
 
@@ -205,4 +206,35 @@ public final class Constants {
             APRIL_TAGS_HEIGHT.put(i, 0.0);
         }}
     }
+
+    public static final class AutoConstants {
+	    public static final double kMaxSpeedMetersPerSecond = 2.5; // Can go up to 3, for safety and accuracy only 2 at the
+  	    // current moment
+	    public static final double kMaxAccelerationMetersPerSecondSquared = 2.5; // Can go up to 3, for safety and accuracy
+	    // only 2 at the current moment
+	    public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
+	    public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
+
+	    // The distance from the center of the robot to the farthers module
+  	    public static final double kSwerveDriveRadius = (DriveConstants.kTrackWidth * Math.sqrt(2)) / 2.0;
+
+
+
+	// Constraint for the motion profiled robot angle controller
+	    public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
+		  	kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+        public static final double kPXController = 2.0;
+        public static final double kIXController = 0.6;
+        public static final double kDXController = 0.01;
+        public static final double kToleranceXController = 0.02;
+        public static final double kPYController = kPXController;
+        public static final double kIYController = kIXController;
+        public static final double kDYController = kDXController;
+        public static final double kToleranceYController = kToleranceXController;
+        public static final double kPThetaController = 0.004;
+        public static final double kIThetaController = 0.003;
+        public static final double kDThetaController = 0;
+        public static final double kToleranceThetaController = 0.1;
+  }
+
 }
