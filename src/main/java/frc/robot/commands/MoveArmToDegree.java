@@ -7,35 +7,30 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Arm;
 
-public class MoveArm extends Command {
-
-  private boolean m_isReversed;
-  private final Arm m_arm;
-
-  /** Creates a new MoveArm. */
-  public MoveArm(Arm arm, boolean isReversed) {
-    m_isReversed = isReversed;
-    m_arm = arm;
-
-    addRequirements(m_arm);
+public class MoveArmToDegree extends Command {
+  private Arm arm;
+  private double degree;
+  
+  public MoveArmToDegree(Arm arm, double degree) {
+    this.arm = arm; 
+    addRequirements(arm);
+    this.degree = degree;
+    
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    arm.setReference(degree);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    int reversed = m_isReversed ? -1 : 1;
-    m_arm.setSpeed(reversed);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_arm.stop();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

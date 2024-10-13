@@ -20,8 +20,10 @@ import edu.wpi.first.wpilibj.PS4Controller;
  */
 public final class Constants {
     public static class OperatorConstants {
-        public static final int RAISE_ARM_BUTTON = PS4Controller.Button.kR2.value;
-        public static final int LOWER_ARM_BUTTON = PS4Controller.Button.kL2.value;
+        public static final int RAISE_ARM_BUTTON_30 = PS4Controller.Button.kR2.value;
+        public static final int RAISE_ARM_BUTTON_70 = PS4Controller.Button.kL2.value;
+        public static final int RAISE_ARM_BUTTON_90 = PS4Controller.Button.kL1.value;
+
         public static final int SWITCH_ARM_CONSTRAINT = PS4Controller.Button.kL1.value;
 
       public static final int kDriverControllerPort = 0;
@@ -148,7 +150,13 @@ public final class Constants {
         public static final double PID_P = 0.05;
         public static final double PID_I = 0;
         public static final double PID_D = 0;
-        public static final double PID_TOLERANCE = 0.5;
+        public static final double PID_MAX_VELOCITY = 0;
+        public static final double PID_MAX_ACCELERATION = 0;
+
+        public static final double DEGREE_30 = 30;
+        public static final double DEGREE_70 = 70;
+        public static final double DEGREE_90 = 90;
+
 
         public static final double[] DISTANCE_TO_ANGLE_POLINDROM = {(-4.28), (8.27E-3), (2.53E-5), (-2.02E8), (6.2E-12), (-6.06E-16)};
     
