@@ -150,8 +150,8 @@ public final class Constants {
         public static final double PID_P = 0.05;
         public static final double PID_I = 0;
         public static final double PID_D = 0;
-        public static final double PID_MAX_VELOCITY = 0;
-        public static final double PID_MAX_ACCELERATION = 0;
+        public static final double PID_MAX_VELOCITY = 60;
+        public static final double PID_MAX_ACCELERATION = 80;
 
         public static final double DEGREE_30 = 30;
         public static final double DEGREE_70 = 70;
