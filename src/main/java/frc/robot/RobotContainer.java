@@ -16,6 +16,10 @@ import frc.robot.commands.Eject;
 import frc.robot.subsystems.Collector;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Shooter;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -111,6 +115,7 @@ public class RobotContainer {
     m_robotDrive.resetOdometry(new Pose2d(0.0, 0.0, new Rotation2d(0.0)));
     m_robotDrive.setModulesDirection(0.00);
 
-    return m_chooser.getSelected();
+    //return m_chooser.getSelected();
+    return new PathPlannerAuto("Basic2Auto");
   }
 }
