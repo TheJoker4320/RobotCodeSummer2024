@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
 
@@ -125,8 +126,16 @@ public class DriveSubsystem extends SubsystemBase
       this::getChassisSpeeds, 
       this::setChassisSpeeds, 
       new PPHolonomicDriveController(
-        new PIDConstants(0,0,0), 
-        new PIDConstants(0,0,0)
+        new PIDConstants(
+          AutoConstants.kPXController,
+          AutoConstants.kIXController,
+          AutoConstants.kDXController
+        ), 
+        new PIDConstants(
+          AutoConstants.kPThetaController,
+          AutoConstants.kIThetaController,
+          AutoConstants.kDThetaController
+        )
       ), 
       config, 
       () -> {

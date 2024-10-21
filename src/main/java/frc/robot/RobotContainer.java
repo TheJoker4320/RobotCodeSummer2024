@@ -116,6 +116,6 @@ public class RobotContainer {
     m_robotDrive.setModulesDirection(0.00);
 
     //return m_chooser.getSelected();
-    return new PathPlannerAuto("Basic2Auto");
+    return new PathPlannerAuto("Basic3Auto");
   }
 }
