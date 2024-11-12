@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveArmToDegree;
 import frc.robot.commands.SwitchArmIsConstrainted;
 import frc.robot.subsystems.Arm;
@@ -70,6 +71,10 @@ public class RobotContainer {
     raiseArmBtn90Degree.onTrue(new MoveArmToDegree(m_arm, Constants.ArmConstants.DEGREE_90));
     JoystickButton switchArmIsConstrainted = new JoystickButton(m_operatorController, OperatorConstants.SWITCH_ARM_CONSTRAINT);
     switchArmIsConstrainted.onTrue(new SwitchArmIsConstrainted(m_arm));
+    JoystickButton raiseArmBtn = new JoystickButton(m_operatorController, OperatorConstants.RAISE_ARM_BUTTON);
+    raiseArmBtn.whileTrue(new MoveArm(m_arm, false));
+    JoystickButton lowerArmBtn = new JoystickButton(m_operatorController, OperatorConstants.LOWER_ARM_BUTTON);
+    lowerArmBtn.whileTrue(new MoveArm(m_arm, true));
   }
 
   /**
