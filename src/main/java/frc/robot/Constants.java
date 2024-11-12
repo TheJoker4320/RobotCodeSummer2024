@@ -144,14 +144,14 @@ public final class Constants {
         public static final int MOTOR_CURRENT_LIMIT = 20;
 
         public static final double ENCODER_POSITION_CONVERTION_RATE = 360;
-        public static final double ENCODER_ZERO_OFFSET = 377.6;
+        public static final double ENCODER_ZERO_OFFSET = 318.9;
         public static final boolean ENCODER_IS_INVERTED = true;
 
-        public static final double PID_P = 0.05;
+        public static final double PID_P = 0.033;
         public static final double PID_I = 0;
         public static final double PID_D = 0;
-        public static final double PID_MAX_VELOCITY = 60;
-        public static final double PID_MAX_ACCELERATION = 80;
+        public static final double PID_MAX_VELOCITY = 5;
+        public static final double PID_MAX_ACCELERATION = 7.5;
 
         public static final double DEGREE_30 = 30;
         public static final double DEGREE_70 = 70;
