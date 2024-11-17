@@ -6,9 +6,13 @@ package frc.robot;
 
 import com.revrobotics.CANSparkBase.IdleMode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.PS4Controller;
+
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -20,16 +24,16 @@ import edu.wpi.first.wpilibj.PS4Controller;
  */
 public final class Constants {
     public static class OperatorConstants {
-        public static final int RAISE_ARM_BUTTON_30 = PS4Controller.Button.kCross.value;
-        public static final int RAISE_ARM_BUTTON_70 = PS4Controller.Button.kCircle.value;
-        public static final int RAISE_ARM_BUTTON_90 = PS4Controller.Button.kSquare.value;
+        public static final int kDriverControllerPort = 0;
+        public static final int kOperatorControllerPort = 1;
         public static final int RAISE_ARM_BUTTON = PS4Controller.Button.kR2.value;
         public static final int LOWER_ARM_BUTTON = PS4Controller.Button.kL2.value;
 
         public static final int SWITCH_ARM_CONSTRAINT = PS4Controller.Button.kL1.value;
-
-      public static final int kDriverControllerPort = 0;
-      public static int kOperatorControllerPort = 1;
+        public static final int CLIMB_BUTTON = PS4Controller.Button.kOptions.value;
+      public static final int COLLECT_BUTTON = PS4Controller.Button.kCross.value;
+      public static final int EJECT_BUTTON = PS4Controller.Button.kSquare.value;
+      public static final int SHOOT_BUTTON = PS4Controller.Button.kCircle.value;
     public static double kDriveDeadband = 0.1;
     }
   
@@ -170,5 +174,42 @@ public final class Constants {
         public static final double DPMS_SPEED = 1.6; //Degree Per ms
         public static final double CONSTRAINTED_SPEED = 0.75;
         public static final double UNCONSTRAINTED_SPEED = 0.4;
+    }
+
+
+    public static class CollectorConstants {
+        public static final int LIMIT_SWITCH_PORT = 0;
+        public static final int PRIMARY_MOTOR_PORT = 15;
+        public static final double COLLECTOR_SPEED = -0.7;
+    }
+
+
+    public static class ShooterConstants{
+        public static final int MASTER_MOTOR_PORT = 14;
+        public static final int SLAVE_MOTOR_PORT = 13;
+        public static final double kP = 0.34;
+        public static final double kI = 0.05;
+        public static final double kD = 0;
+        public static final int SHOOTER_ENCODER_PORT_A = 1;
+		public static final int SHOOTER_ENCODER_PORT_B = 2;
+    }
+
+    public static class ClimberConstants{
+        public static final int PRIMARY_MOTOR_ID = 11;
+        public static final int SECONDARY_MOTOR_ID = 12;
+        public static final int SMART_CURRENT_LIMIT = 50;
+        public static final double CLIMB_SPEED = 0.5;
+
+    }
+    public static final class LimelightConstants {
+        public static final double LIMELIGHT_HEIGHT_FROM_FLOOR = 27;
+        public static final double LIMELIGHT_MOUNT_ANGLE = 0;
+        public static final double LIMELIGHT_FROM_ROBOT_EDGE = 16.2;
+        public static final Map<Integer, Double> APRIL_TAGS_HEIGHT = new HashMap<>();
+
+    static {
+        for (int i = 1; i <= 16; i++) {
+            APRIL_TAGS_HEIGHT.put(i, 0.0);
+        }}
     }
 }

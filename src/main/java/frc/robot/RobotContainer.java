@@ -9,7 +9,14 @@ import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveArmToDegree;
 import frc.robot.commands.SwitchArmIsConstrainted;
 import frc.robot.subsystems.Arm;
+import frc.robot.commands.Climb;
+import frc.robot.subsystems.Climber;
+import frc.robot.commands.Shoot;
+import frc.robot.commands.Collect;
+import frc.robot.commands.Eject;
+import frc.robot.subsystems.Collector;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
@@ -30,11 +37,13 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_robotDrive = DriveSubsystem.getInstance();
   private final Arm m_arm = Arm.getInstance();
+  private final Climber m_climber = Climber.getInstance();
+  private final Shooter m_shooter = Shooter.getInstance();
+  private final Collector m_collector = Collector.getInstance();
 
   // Creating the Controllers
   private final XboxController m_driverController = new XboxController(OperatorConstants.kDriverControllerPort);
   private final PS4Controller m_operatorController = new PS4Controller(OperatorConstants.kOperatorControllerPort);
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
@@ -63,14 +72,16 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    JoystickButton raiseArmBtn30Degree = new JoystickButton(m_operatorController, OperatorConstants.RAISE_ARM_BUTTON_30);
-    raiseArmBtn30Degree.onTrue(new MoveArmToDegree(m_arm, Constants.ArmConstants.DEGREE_30));
-    JoystickButton raiseArmBtn70Degree = new JoystickButton(m_operatorController, OperatorConstants.RAISE_ARM_BUTTON_70);
-    raiseArmBtn70Degree.onTrue(new MoveArmToDegree(m_arm, Constants.ArmConstants.DEGREE_70));
-    JoystickButton raiseArmBtn90Degree = new JoystickButton(m_operatorController, OperatorConstants.RAISE_ARM_BUTTON_90);
-    raiseArmBtn90Degree.onTrue(new MoveArmToDegree(m_arm, Constants.ArmConstants.DEGREE_90));
     JoystickButton switchArmIsConstrainted = new JoystickButton(m_operatorController, OperatorConstants.SWITCH_ARM_CONSTRAINT);
     switchArmIsConstrainted.onTrue(new SwitchArmIsConstrainted(m_arm));
+    JoystickButton shootButton = new JoystickButton(m_operatorController, OperatorConstants.SHOOT_BUTTON);
+    shootButton.whileTrue(new Shoot(m_shooter, 60));
+    JoystickButton collectButton = new JoystickButton(m_operatorController, OperatorConstants.COLLECT_BUTTON);
+    collectButton.onTrue(new Collect(m_collector));
+    JoystickButton ejectButton = new JoystickButton(m_operatorController, OperatorConstants.EJECT_BUTTON);
+    ejectButton.whileTrue(new Eject(m_collector));
+    JoystickButton climbButton = new JoystickButton(m_operatorController, OperatorConstants.CLIMB_BUTTON);
+    climbButton.whileTrue(new Climb(m_climber));
     JoystickButton raiseArmBtn = new JoystickButton(m_operatorController, OperatorConstants.RAISE_ARM_BUTTON);
     raiseArmBtn.whileTrue(new MoveArm(m_arm, false));
     JoystickButton lowerArmBtn = new JoystickButton(m_operatorController, OperatorConstants.LOWER_ARM_BUTTON);
