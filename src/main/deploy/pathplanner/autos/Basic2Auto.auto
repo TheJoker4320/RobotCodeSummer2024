@@ -5,9 +5,40 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "CollectFirst"
+            "name": "raiseArm"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "lowerArm"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "CollectFirst"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "collect"
+                }
+              }
+            ]
           }
         },
         {
@@ -20,6 +51,18 @@
           "type": "path",
           "data": {
             "pathName": "ReturnFirst"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "raiseArm"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot"
           }
         }
       ]
