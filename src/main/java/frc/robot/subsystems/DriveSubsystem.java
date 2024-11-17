@@ -4,7 +4,14 @@
 
 package frc.robot.subsystems;
 
+import java.io.IOException;
+
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.kauailabs.navx.frc.AHRS;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -18,9 +25,11 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.util.WPIUtilJNI;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
 
@@ -99,6 +108,44 @@ public class DriveSubsystem extends SubsystemBase
     m_realStartingAngle = 0;
 
     isFieldRelative = true;
+    configureAutoBuilder();
+  }
+
+  private void configureAutoBuilder() {
+    RobotConfig config;
+    try {
+      config = RobotConfig.fromGUISettings();
+    } catch (Exception e) {
+      DriverStation.reportError("Exception with robot configuration", e.getStackTrace());
+      return;
+    }
+
+    AutoBuilder.configure(
+      this::getPose, 
+      this::resetOdometry, 
+      this::getChassisSpeeds, 
+      this::setChassisSpeeds, 
+      new PPHolonomicDriveController(
+        new PIDConstants(
+          AutoConstants.kPXController,
+          AutoConstants.kIXController,
+          AutoConstants.kDXController
+        ), 
+        new PIDConstants(
+          AutoConstants.kPThetaController,
+          AutoConstants.kIThetaController,
+          AutoConstants.kDThetaController
+        )
+      ), 
+      config, 
+      () -> {
+        var alliance = DriverStation.getAlliance();
+        if (alliance.isPresent())
+          return alliance.get() == DriverStation.Alliance.Red;
+        return false;
+      }, 
+      this
+    );
   }
 
   @Override
@@ -197,6 +244,10 @@ public class DriveSubsystem extends SubsystemBase
     }
 
     return driveSubsystem;
+  }
+
+  public void resetOdometry() {
+    resetOdometry(new Pose2d());
   }
 
   public void resetOdometry(Pose2d pose) 
