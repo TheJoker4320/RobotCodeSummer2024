@@ -175,6 +175,8 @@ public final class Constants {
         public static final int LIMIT_SWITCH_PORT = 0;
         public static final int PRIMARY_MOTOR_PORT = 15;
         public static final double COLLECTOR_SPEED = -0.7;
+
+        public static final double AUTO_COLLECTOR_TIMEOUT = 1;
     }
 
 
@@ -186,6 +188,9 @@ public final class Constants {
         public static final double kD = 0;
         public static final int SHOOTER_ENCODER_PORT_A = 1;
 		public static final int SHOOTER_ENCODER_PORT_B = 2;
+
+        public static final double SHOOTER_SPEED = 60;
+        public static final double AUTO_SHOOTER_TIMEOUT = 1;
     }
 
     public static class ClimberConstants{
