@@ -35,6 +35,7 @@ public final class Constants {
       public static final int COLLECT_BUTTON = PS4Controller.Button.kCross.value;
       public static final int EJECT_BUTTON = PS4Controller.Button.kSquare.value;
       public static final int SHOOT_BUTTON = PS4Controller.Button.kCircle.value;
+    public static final int ALWAYS_COLLECT_BUTTON = PS4Controller.Button.kR1.value;
     public static double kDriveDeadband = 0.1;
     }
   
@@ -44,7 +45,7 @@ public final class Constants {
       // This changes the drive speed of the module (a pinion gear with more teeth
       // will result in a
       // robot that drives faster).
-      public static final int kDrivingMotorPinionTeeth = 14;
+      public static final int kDrivingMotorPinionTeeth = 16;
 
       // Invert the turning encoder, since the output shaft rotates in the opposite
       // direction of
@@ -58,7 +59,7 @@ public final class Constants {
       public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
       // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15
       // teeth on the bevel pinion
-      public static final double kDrivingMotorReduction = (45.0 * 22) / (kDrivingMotorPinionTeeth * 15);
+      public static final double kDrivingMotorReduction = (45.0 * 19) / (kDrivingMotorPinionTeeth * 15);
       public static final double kDriveWheelFreeSpeedRps = (kDrivingMotorFreeSpeedRps * kWheelCircumferenceMeters)
           / kDrivingMotorReduction;
 
@@ -73,14 +74,14 @@ public final class Constants {
       public static final double kTurningEncoderPositionPIDMinInput = 0; // radians
       public static final double kTurningEncoderPositionPIDMaxInput = kTurningEncoderPositionFactor; // radians
 
-      public static final double[] kDrivingP = {0.06, 0.08, 0.04, 0.14};
+      public static final double[] kDrivingP = {0.09, 0.09, 0.09, 0.09};
       public static final double[] kDrivingI = {0, 0, 0, 0};
       public static final double[] kDrivingD = {0, 0, 0, 0};
       public static final double kDrivingFF = 1 / kDriveWheelFreeSpeedRps;
       public static final double kDrivingMinOutput = -1;
       public static final double kDrivingMaxOutput = 1;
       
-      public static final double kTurningP = 1;
+      public static final double kTurningP = 1.15;
       public static final double kTurningI = 0.002;
       public static final double kTurningD = 0;
       public static final double kTurningFF = 0;
@@ -91,7 +92,7 @@ public final class Constants {
       public static final IdleMode kDrivingMotorIdleMode = IdleMode.kBrake;
       public static final IdleMode kTurningMotorIdleMode = IdleMode.kBrake;
 
-      public static final int kDrivingMotorCurrentLimit = 50; // amps
+      public static final int kDrivingMotorCurrentLimit = 69; // amps
       public static final int kTurningMotorCurrentLimit = 20; // amps
     }
 
@@ -151,7 +152,7 @@ public final class Constants {
         public static final int MOTOR_CURRENT_LIMIT = 20;
         
         public static final double ENCODER_POSITION_CONVERTION_RATE = 360;
-        public static final double ENCODER_ZERO_OFFSET = 318.9;
+        public static final double ENCODER_ZERO_OFFSET = 316.4515901;
         public static final boolean ENCODER_IS_INVERTED = true;
         
         public static final double PID_P = 0.033;
@@ -160,7 +161,7 @@ public final class Constants {
         public static final double PID_MAX_VELOCITY = 5;
         public static final double PID_MAX_ACCELERATION = 7.5;
         
-        public static final double DEGREE_30 = 30;
+        public static final double SHOOTING_DEGREE = 30;
         public static final double DEGREE_70 = 70;
         public static final double DEGREE_90 = 90;
         
@@ -235,15 +236,15 @@ public final class Constants {
 	// Constraint for the motion profiled robot angle controller
 	    public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
 		  	kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
-        public static final double kPXController = 1.9;
-        public static final double kIXController = 0.6;
-        public static final double kDXController = 0.02;
+        public static final double kPXController = 1;
+        public static final double kIXController = 0;
+        public static final double kDXController = 0;
         public static final double kToleranceXController = 0.02;
         public static final double kPYController = kPXController;
         public static final double kIYController = kIXController;
         public static final double kDYController = kDXController;
         public static final double kToleranceYController = kToleranceXController;
-        public static final double kPThetaController = 0.004;
+        public static final double kPThetaController = 0.0065;
         public static final double kIThetaController = 0.003;
         public static final double kDThetaController = 0;
         public static final double kToleranceThetaController = 0.1;
