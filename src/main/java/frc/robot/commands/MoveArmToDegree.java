@@ -35,6 +35,6 @@ public class MoveArmToDegree extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return Math.abs(m_arm.getPosition() - m_degree) <= 2;
   }
 }

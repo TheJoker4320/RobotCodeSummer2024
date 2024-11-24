@@ -46,6 +46,10 @@ public class Shooter extends SubsystemBase {
     master.set(TalonSRXControlMode.PercentOutput, output);
   }
 
+  public void stop(){
+    master.set(TalonSRXControlMode.PercentOutput, 0.0);
+  }
+
 
   @Override
   public void periodic() {

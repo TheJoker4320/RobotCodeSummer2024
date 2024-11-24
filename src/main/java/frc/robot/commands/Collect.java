@@ -10,9 +10,11 @@ import frc.robot.Constants.CollectorConstants;
 
 public class Collect extends Command {
   private Collector m_collector;
+  private boolean m_isLimitSwitch;
   
-  public Collect(Collector collector) {
+  public Collect(Collector collector, boolean isLimitSwitch) {
     m_collector = collector;
+    m_isLimitSwitch = isLimitSwitch;
   }
 
   // Called when the command is initially scheduled.
@@ -34,6 +36,6 @@ public class Collect extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_collector.GetLimitSwitch();
+    return m_isLimitSwitch ? m_collector.GetLimitSwitch() : false;
   }
 }

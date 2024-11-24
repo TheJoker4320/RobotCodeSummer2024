@@ -7,7 +7,6 @@ package frc.robot;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.CollectorConstants;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveArmToDegree;
 import frc.robot.commands.SwitchArmIsConstrainted;
@@ -15,7 +14,6 @@ import frc.robot.subsystems.Arm;
 import frc.robot.commands.Climb;
 import frc.robot.subsystems.Climber;
 import frc.robot.commands.Shoot;
-import frc.robot.commands.ShootTimeBased;
 import frc.robot.commands.Collect;
 import frc.robot.commands.CollectTimeBased;
 import frc.robot.commands.Eject;
@@ -23,20 +21,17 @@ import frc.robot.subsystems.Collector;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Shooter;
 
-import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -64,12 +59,13 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    NamedCommands.registerCommand("collect", new Collect(m_collector));
-    NamedCommands.registerCommand("shoot", new ParallelCommandGroup(
-      new CollectTimeBased(m_collector, CollectorConstants.AUTO_COLLECTOR_TIMEOUT),
-      new ShootTimeBased(m_shooter, ShooterConstants.AUTO_SHOOTER_TIMEOUT)));
-    NamedCommands.registerCommand("raiseArm", new MoveArmToDegree(m_arm, ArmConstants.DEGREE_30));
-    NamedCommands.registerCommand("lowerArm", new MoveArmToDegree(m_arm, 0));
+    NamedCommands.registerCommand("collect", new Collect(m_collector, true));
+    NamedCommands.registerCommand("collectByTime", new CollectTimeBased(m_collector,
+    Constants.CollectorConstants.AUTO_COLLECTOR_TIMEOUT));
+    NamedCommands.registerCommand("warmUpShooter", new Shoot(m_shooter,
+    Constants.ShooterConstants.SHOOTER_SPEED));
+    NamedCommands.registerCommand("raiseArm", new MoveArmToDegree(m_arm, ArmConstants.SHOOTING_DEGREE));
+    NamedCommands.registerCommand("lowerArm", new MoveArmToDegree(m_arm, 3));
 
     // Configure the trigger bindings
     configureBindings();
@@ -78,8 +74,10 @@ public class RobotContainer {
     m_chooser = new SendableChooser<>();
 
     m_chooser.addOption("Wait", new WaitCommand(0.0));
-    m_chooser.addOption("Drive one meter", AutoCreator.getDrive1MeterCommand(m_robotDrive));
+    m_chooser.addOption("Drive one meter", new PathPlannerAuto("CalibrationTest"));
     m_chooser.addOption("Drive one meter diagonally", AutoCreator.getDrive1MeterDiagonallyCommand(m_robotDrive));
+    m_chooser.addOption("Basic2Auto", new PathPlannerAuto("Basic2Auto"));
+    m_chooser.addOption("Basic3Auto", new PathPlannerAuto("Basic3Auto"));
     SmartDashboard.putData(m_chooser);
     // Configure default commands
     m_robotDrive.setDefaultCommand(
@@ -110,7 +108,10 @@ public class RobotContainer {
     JoystickButton shootButton = new JoystickButton(m_operatorController, OperatorConstants.SHOOT_BUTTON);
     shootButton.whileTrue(new Shoot(m_shooter, 60));
     JoystickButton collectButton = new JoystickButton(m_operatorController, OperatorConstants.COLLECT_BUTTON);
-    collectButton.onTrue(new Collect(m_collector));
+    //collectButton.onTrue(new Collect(m_collector, true));
+    collectButton.onTrue(new CollectTimeBased(m_collector, CollectorConstants.AUTO_COLLECTOR_TIMEOUT));
+    JoystickButton collectAlwaysButton = new JoystickButton(m_operatorController, OperatorConstants.ALWAYS_COLLECT_BUTTON);
+    collectAlwaysButton.whileTrue(new Collect(m_collector, false));
     JoystickButton ejectButton = new JoystickButton(m_operatorController, OperatorConstants.EJECT_BUTTON);
     ejectButton.whileTrue(new Eject(m_collector));
     JoystickButton climbButton = new JoystickButton(m_operatorController, OperatorConstants.CLIMB_BUTTON);
@@ -131,7 +132,6 @@ public class RobotContainer {
     m_robotDrive.resetOdometry(new Pose2d(0.0, 0.0, new Rotation2d(0.0)));
     m_robotDrive.setModulesDirection(0.00);
 
-    //return m_chooser.getSelected();
-    return new PathPlannerAuto("Basic2Auto");
+    return m_chooser.getSelected();
   }
 }
