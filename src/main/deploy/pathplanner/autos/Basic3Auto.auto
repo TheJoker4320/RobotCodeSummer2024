@@ -5,15 +5,66 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "CollectFirst"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "warmUpShooter"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "raiseArm"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "collectByTime"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "lowerArm"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "CollectFirst"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "collect"
+                }
+              }
+            ]
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
           }
         },
         {
@@ -23,27 +74,98 @@
           }
         },
         {
-          "type": "wait",
+          "type": "race",
           "data": {
-            "waitTime": 1.0
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "warmUpShooter"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "raiseArm"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "collectByTime"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "lowerArm"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "CollectSecond"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "CollectSecond"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "collect"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "ReturnSecond"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "warmUpShooter"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "raiseArm"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "collectByTime"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       ]
