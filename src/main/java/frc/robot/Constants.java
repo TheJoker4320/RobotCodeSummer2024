@@ -13,6 +13,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.PS4Controller;
+import edu.wpi.first.wpilibj.XboxController;
 
 
 /**
@@ -35,7 +36,14 @@ public final class Constants {
       public static final int COLLECT_BUTTON = PS4Controller.Button.kCross.value;
       public static final int EJECT_BUTTON = PS4Controller.Button.kSquare.value;
       public static final int SHOOT_BUTTON = PS4Controller.Button.kCircle.value;
-    public static final int ALWAYS_COLLECT_BUTTON = PS4Controller.Button.kR1.value;
+
+
+      public static final int DRIVER_HIGH_SPEED = XboxController.Button.kY.value;
+      public static final int DRIVER_MEDIUM_SPEED = XboxController.Button.kB.value;
+      public static final int DRIVER_LOW_SPEED = XboxController.Button.kA.value;
+      public static final int DRIVER_RESET_HEADING = XboxController.Button.kLeftBumper.value;
+      public static final int DRIVER_CHANGE_ROBOT_RELATIVE = XboxController.Button.kX.value;
+
     public static double kDriveDeadband = 0.1;
     }
   
@@ -249,5 +257,13 @@ public final class Constants {
         public static final double kDThetaController = 0;
         public static final double kToleranceThetaController = 0.1;
   }
+  public static class Rashatz{
+    public static final String name = "Itay";
+    public static final String surName = "Zenkin";
+    public static final String title = "Habaron";
+    public static final int age = 17;
+    public static final double eatWithMonster = 7.90;
+    
 
+  }
 }

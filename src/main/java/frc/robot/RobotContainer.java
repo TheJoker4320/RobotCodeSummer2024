@@ -9,8 +9,11 @@ import frc.robot.Constants.CollectorConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveArmToDegree;
+import frc.robot.commands.ResetHeading;
 import frc.robot.commands.SwitchArmIsConstrainted;
 import frc.robot.subsystems.Arm;
+import frc.robot.commands.ChangeRobotRelative;
+import frc.robot.commands.ChangeSpeed;
 import frc.robot.commands.Climb;
 import frc.robot.subsystems.Climber;
 import frc.robot.commands.Shoot;
@@ -103,15 +106,13 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    JoystickButton switchArmIsConstrainted = new JoystickButton(m_operatorController, OperatorConstants.SWITCH_ARM_CONSTRAINT);
-    switchArmIsConstrainted.onTrue(new SwitchArmIsConstrainted(m_arm));
     JoystickButton shootButton = new JoystickButton(m_operatorController, OperatorConstants.SHOOT_BUTTON);
     shootButton.whileTrue(new Shoot(m_shooter, 60));
     JoystickButton collectButton = new JoystickButton(m_operatorController, OperatorConstants.COLLECT_BUTTON);
-    //collectButton.onTrue(new Collect(m_collector, true));
-    collectButton.onTrue(new CollectTimeBased(m_collector, CollectorConstants.AUTO_COLLECTOR_TIMEOUT));
-    JoystickButton collectAlwaysButton = new JoystickButton(m_operatorController, OperatorConstants.ALWAYS_COLLECT_BUTTON);
-    collectAlwaysButton.whileTrue(new Collect(m_collector, false));
+    collectButton.toggleOnTrue(new Collect(m_collector, true));
+    // collectButton.onTrue(new CollectTimeBased(m_collector, CollectorConstants.AUTO_COLLECTOR_TIMEOUT));
+    // JoystickButton collectAlwaysButton = new JoystickButton(m_operatorController, OperatorConstants.);
+    // collectAlwaysButton.whileTrue(new Collect(m_collector, false));
     JoystickButton ejectButton = new JoystickButton(m_operatorController, OperatorConstants.EJECT_BUTTON);
     ejectButton.whileTrue(new Eject(m_collector));
     JoystickButton climbButton = new JoystickButton(m_operatorController, OperatorConstants.CLIMB_BUTTON);
@@ -120,6 +121,17 @@ public class RobotContainer {
     raiseArmBtn.whileTrue(new MoveArm(m_arm, false));
     JoystickButton lowerArmBtn = new JoystickButton(m_operatorController, OperatorConstants.LOWER_ARM_BUTTON);
     lowerArmBtn.whileTrue(new MoveArm(m_arm, true));
+
+    JoystickButton highSpeedBtn = new JoystickButton(m_driverController, OperatorConstants.DRIVER_HIGH_SPEED);
+    highSpeedBtn.onTrue(new ChangeSpeed(m_robotDrive, 1));
+    JoystickButton medSpeedBtn = new JoystickButton(m_driverController, OperatorConstants.DRIVER_MEDIUM_SPEED);
+    medSpeedBtn.onTrue(new ChangeSpeed(m_robotDrive, 0.7));
+    JoystickButton lowSpeedBtn = new JoystickButton(m_driverController, OperatorConstants.DRIVER_LOW_SPEED);
+    lowSpeedBtn.onTrue(new ChangeSpeed(m_robotDrive, 0.3));
+    JoystickButton resetHeadingBtn = new JoystickButton(m_driverController, OperatorConstants.DRIVER_RESET_HEADING);
+    resetHeadingBtn.onTrue(new ResetHeading(m_robotDrive));
+    JoystickButton changeRobotRelativeBtn = new JoystickButton(m_driverController, OperatorConstants.DRIVER_CHANGE_ROBOT_RELATIVE);
+    changeRobotRelativeBtn.onTrue(new ChangeRobotRelative(m_robotDrive));
   }
 
   /**
