@@ -161,7 +161,7 @@ public final class Constants {
         public static final double PID_MAX_VELOCITY = 5;
         public static final double PID_MAX_ACCELERATION = 7.5;
         
-        public static final double SHOOTING_DEGREE = 30;
+        public static final double SHOOTING_DEGREE = 11.25;
         public static final double DEGREE_70 = 70;
         public static final double DEGREE_90 = 90;
         
@@ -221,9 +221,9 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-	    public static final double kMaxSpeedMetersPerSecond = 2.5; // Can go up to 3, for safety and accuracy only 2 at the
+	    public static final double kMaxSpeedMetersPerSecond = 4; // Can go up to 3, for safety and accuracy only 2 at the
   	    // current moment
-	    public static final double kMaxAccelerationMetersPerSecondSquared = 2.5; // Can go up to 3, for safety and accuracy
+	    public static final double kMaxAccelerationMetersPerSecondSquared = 3; // Can go up to 3, for safety and accuracy
 	    // only 2 at the current moment
 	    public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
 	    public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;

@@ -65,7 +65,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("warmUpShooter", new Shoot(m_shooter,
     Constants.ShooterConstants.SHOOTER_SPEED));
     NamedCommands.registerCommand("raiseArm", new MoveArmToDegree(m_arm, ArmConstants.SHOOTING_DEGREE));
-    NamedCommands.registerCommand("lowerArm", new MoveArmToDegree(m_arm, 3));
+    NamedCommands.registerCommand("lowerArm", new MoveArmToDegree(m_arm, 5));
 
     // Configure the trigger bindings
     configureBindings();
@@ -120,6 +120,7 @@ public class RobotContainer {
     raiseArmBtn.whileTrue(new MoveArm(m_arm, false));
     JoystickButton lowerArmBtn = new JoystickButton(m_operatorController, OperatorConstants.LOWER_ARM_BUTTON);
     lowerArmBtn.whileTrue(new MoveArm(m_arm, true));
+    
   }
 
   /**
